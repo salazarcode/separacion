@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente</title>
+</head>
+<body>
+    <h1>CliDatos de cliente:</h1>    
+    <input type="text" name="nombres" id="nombres">
+    <button id="enviar">Enviar</button>
+
+    <script type="module">
+        document.getElementById("enviar").onclick = async function(){
+            let nombres = document.getElementById("nombres").value;
+            
+            var res = await fetch("./procesar.php",{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "nombres" : nombres
+                })
+            })
+            .then(x => x.json())
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+            console.log(res);
+        }
+    </script>
+</body>
+</html>
